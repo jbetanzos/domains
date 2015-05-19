@@ -1,0 +1,3 @@
+domains:
+    resource: "@DomainsBundle/Controller"
+    type:     annotation

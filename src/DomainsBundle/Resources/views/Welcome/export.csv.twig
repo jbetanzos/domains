@@ -1,0 +1,4 @@
+"Rank","URL","Linking Root Domains","External Links","mozRank","mozTrust"
+{% for Domain in Domains %}
+{{ Domain.url }},"{{ Domain.url }}",{{ Domain.linking }},{{ Domain.external }},{{ Domain.mozrank }},{{ Domain.moztrust }}
+{% endfor %}

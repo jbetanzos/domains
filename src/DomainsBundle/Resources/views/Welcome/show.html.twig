@@ -1,0 +1,22 @@
+{% extends 'DomainsBundle::layout.html.twig' %}
+
+{% block content %}
+    <table class="table">
+        <tr>
+            <th>URL</th>
+            <th>LINKING</th>
+            <th>EXTERNAL</th>
+            <th>MOZ RANK</th>
+            <th>MOZ TRUST</th>
+        </tr>
+        {% for Domain in Domains %}
+            <tr>
+                <td>{{ Domain.url }}</td>
+                <td>{{ Domain.linking }}</td>
+                <td>{{ Domain.external }}</td>
+                <td>{{ Domain.mozrank }}</td>
+                <td>{{ Domain.moztrust }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
