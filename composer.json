@@ -40,7 +40,8 @@
         "jquery/jquery": "1.11.*"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3"
+        "sensio/generator-bundle": "~2.3",
+        "phpunit/phpunit": "4.6.*"
     },
     "scripts": {
         "post-root-package-install": [
