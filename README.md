@@ -1,4 +1,16 @@
-my_project
-==========
+# Installation
 
-A Symfony project created on May 19, 2015, 10:13 am.
+Database creation
+
+```sh
+$ php app/console doctrine:database:create
+$ php app/console doctrine:schema:create
+```
+
+### Plugins
+
+Code coverage
+
+```sh
+$ phpunit -c app/ --coverage-html code-coverage/
+```
