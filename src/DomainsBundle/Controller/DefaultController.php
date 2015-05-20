@@ -3,6 +3,7 @@
 namespace DomainsBundle\Controller;
 
 use DomainsBundle\Entity\Domains;
+use DomainsBundle\Helpers\Importer;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,7 +17,7 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         $form = $this->createFormBuilder()
-            ->add('csvFile', 'file', array('label' => 'Select your file'))
+            ->add('csvFile', 'file', array('label' => ' '))
             ->add('save', 'submit', array('label' => 'Upload'))
             ->getForm();
 
@@ -29,23 +30,12 @@ class DefaultController extends Controller
 
             $em = $this->getDoctrine()->getEntityManager();
 
-            if (($handle = fopen($fileName, "r")) !== false) {
-                while (($data = fgetcsv($handle, 0, ",")) !== false) {
-                    if ($ignoreFirstRow === false) {
-                        $domain = new Domains();
-                        $domain->setUrl($data[1]);
-                        $domain->setLinking($data[2]);
-                        $domain->setExternal($data[3]);
-                        $domain->setMozrank($data[4]);
-                        $domain->setMoztrust($data[5]);
-                        $em->persist($domain);
-                    }
-                    $ignoreFirstRow = false;
-                }
-                fclose($handle);
+            $importer = new Importer($em);
+
+            if ($importer->importCsvIntoDatabase($fileName, true)) {
+                return $this->redirect('show');
             }
-            $em->flush();
-            return $this->redirect('show');
+
         }
 
         $view = 'DomainsBundle:Welcome:index.html.twig';
@@ -53,7 +43,7 @@ class DefaultController extends Controller
         $response = $this->render(
             $view,
             array(
-                'UploadFileForm' => $form->createView()
+                'UploadFileForm' => $form->createView(),
             )
         );
 
@@ -67,7 +57,7 @@ class DefaultController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         $domains = $em->getRepository('DomainsBundle:Domains')
-            ->findAll();
+            ->findBy(array(), array('url' => 'ASC'));
 
         $view = 'DomainsBundle:Welcome:show.html.twig';
 

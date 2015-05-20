@@ -1,14 +1,15 @@
 {% extends 'DomainsBundle::layout.html.twig' %}
 
 {% block introHeader %}
-    <div class="container">
+    <div class="container" style="maring-right: none">
 
         <div class="row">
             <div class="col-lg-12">
                 <div class="intro-message">
-                        {{ form_start(UploadFileForm) }}
-                        {{ form_widget(UploadFileForm) }}
-                        {{ form_end(UploadFileForm) }}
+                    {{ form_start(UploadFileForm) }}
+                    {{ form_widget(UploadFileForm) }}
+                    {{ form_end(UploadFileForm) }}
+                    <hr class="intro-divider">
                 </div>
             </div>
         </div>

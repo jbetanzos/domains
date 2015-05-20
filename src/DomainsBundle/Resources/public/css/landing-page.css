@@ -39,11 +39,22 @@ h6 {
     background-size: cover;
 }
 
+.intro-message::before, .intro-message::after {
+    content: " ";
+    display: table;
+}
+
+.intro-message::after {
+    clear: both;
+}
+
 .intro-message {
     position: relative;
     padding-top: 20%;
     padding-bottom: 20%;
     width: 40%;
+    margin-right: auto;
+    margin-left: auto;
 }
 
 .intro-message > h1 {
